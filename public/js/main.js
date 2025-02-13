@@ -6,23 +6,31 @@ document.addEventListener('DOMContentLoaded', () => {
     const equipmentForm = document.getElementById('equipmentForm');
     const modalTitle = document.getElementById('modalTitle');
 
-    // 打开模态框
-    function openModal(equipment = null) {
-        if (equipment) {
-            modalTitle.textContent = '编辑设备';
-            document.getElementById('equipmentId').value = equipment.id;
-            document.getElementById('name').value = equipment.name;
-            document.getElementById('type').value = equipment.type;
-            document.getElementById('status').value = equipment.status;
-            document.getElementById('borrower').value = equipment.borrower || '';
-            document.getElementById('borrowDate').value = equipment.borrowDate || '';
-            document.getElementById('returnDate').value = equipment.returnDate || '';
-        } else {
-            modalTitle.textContent = '添加新设备';
-            equipmentForm.reset();
-        }
-        modal.style.display = 'block';
+    // 修改后的openModal函数
+function openModal(equipment = null) {
+    const modal = document.getElementById('equipmentModal');
+    // 重置表单
+    document.getElementById('equipmentForm').reset();
+    
+    if (equipment) {
+        modalTitle.textContent = '编辑设备';
+        document.getElementById('equipmentId').value = equipment.id;
+        document.getElementById('name').value = equipment.name;
+        document.getElementById('type').value = equipment.type;
+        document.getElementById('status').value = equipment.status;
+        document.getElementById('borrower').value = equipment.borrower || '';
+        document.getElementById('borrowDate').value = equipment.borrowDate || '';
+        document.getElementById('returnDate').value = equipment.returnDate || '';
+    } else {
+        modalTitle.textContent = '添加新设备';
     }
+    modal.style.display = 'block'; // 确保这行存在
+}
+
+// 确保事件监听器正确绑定
+document.getElementById('addEquipment').addEventListener('click', () => {
+    openModal();
+});
 
     // 关闭模态框
     function closeModal() {
